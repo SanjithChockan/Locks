@@ -20,7 +20,7 @@ public class Main {
         int num = Integer.parseInt(args[1]);
         boolean toAppend = "true".equals(args[2]);
 
-        String filePath = "/Users/sanjith/Desktop/Desktop - Sanjith’s MacBook Air/UTD/Multicore Research/Locks/src/resources/data/";
+        String filePath = "/Users/sanjith/Computer Science/multicore/Locks/src/resources/data/";
         try {
             myWriter = new FileWriter(filePath + lockType + "/" + lockType + "-" + num + ".txt", toAppend);
             outputWriter = new BufferedWriter(myWriter);
