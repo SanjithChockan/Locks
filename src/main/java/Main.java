@@ -6,10 +6,17 @@ public class Main {
     static Counter c;
     static FileWriter myWriter;
     static BufferedWriter outputWriter;
-    //static OutputStreamWriter outputWriter;
+    // static OutputStreamWriter outputWriter;
 
     public static void main(String[] args) throws Exception {
+
         // Driver Code to invoke locks
+
+        
+        if (args.length == 0) {
+            invokeTASLock(4, 1000);
+            System.exit(0);
+        }
 
         int limit = 1000000;
         String lockType = args[0];
@@ -27,28 +34,70 @@ public class Main {
 
         if (lockType.equals("Tournament")) {
             invokeTournamentAlgorithm(num, limit);
-            outputWriter.close();
         } else if (lockType.equals("FilterV1")) {
             invokeFilterLock(num, limit, 1);
-            outputWriter.close();
         } else if (lockType.equals("FilterV2")) {
             invokeFilterLock(num, limit, 2);
-            outputWriter.close();
         } else if (lockType.equals("BakeryLockV1")) {
             invokeBakeryLock(num, limit, 1);
-            outputWriter.close();
         } else if (lockType.equals("BakeryLockV2")) {
             invokeBakeryLock(num, limit, 2);
-            outputWriter.close();
+        } else if (lockType.equals("TASLock")) {
+            invokeTASLock(num, limit);
+        } else if (lockType.equals("TTASLock")) {
+            invokeTTASLock(num, limit);
         }
+        outputWriter.close();
     }
 
-    static void invokeTASLock(int n, int limit) throws Exception{
-        
+    static void invokeTASLock(int n, int limit) throws Exception {
+        Thread[] threads = new Thread[n];
+        TASLock tas = new TASLock();
+        c = new Counter(tas);
+
+        for (int i = 0; i < n; i++) {
+            // each thread invokes incrementcounter "limit" times
+            threads[i] = new Thread(new Runnable() {
+                public void run() {
+                    for (int j = 0; j < limit; j++) {
+                        c.increment();
+                    }
+                }
+            });
+
+            // instantiate lock object with offset to correctly index threads from 0 to n-1
+            if (i == 0) {
+                tas.setOffset((int) threads[i].getId());
+            }
+        }
+
+        long startTime = System.currentTimeMillis();
+        for (int i = 0; i < n; i++) {
+            threads[i].start();
+        }
+
+        // Wait for each thread to complete using the join() method
+        for (Thread thread : threads) {
+            try {
+                thread.join(); // Main thread waits for each thread to finish
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        long stopTime = System.currentTimeMillis();
+        String outputData = String.valueOf((stopTime - startTime));
+        /* 
+        outputWriter.write(outputData);
+        outputWriter.flush();
+        outputWriter.newLine();
+        */
+        // display count
+        c.displayCount();
+
     }
 
-    static void invokeTTASLock(int n, int limit) throws Exception{
-        
+    static void invokeTTASLock(int n, int limit) throws Exception {
+
     }
 
     static void invokeTournamentAlgorithm(int n, int limit) throws Exception {
