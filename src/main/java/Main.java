@@ -1,10 +1,6 @@
 import java.io.BufferedWriter;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
 
 public class Main {
     static Counter c;
@@ -45,6 +41,14 @@ public class Main {
             invokeBakeryLock(num, limit, 2);
             outputWriter.close();
         }
+    }
+
+    static void invokeTASLock(int n, int limit) throws Exception{
+        
+    }
+
+    static void invokeTTASLock(int n, int limit) throws Exception{
+        
     }
 
     static void invokeTournamentAlgorithm(int n, int limit) throws Exception {

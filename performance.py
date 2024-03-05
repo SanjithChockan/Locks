@@ -7,7 +7,15 @@ import matplotlib.pyplot as plt
 # compare efficiency of mutual exlcusion locks implemented in the project
 
 
-lock_type = ["Tournament", "FilterV1", "FilterV2", "BakeryLockV1", "BakeryLockV2"]
+lock_type = [
+    "TASLock",
+    "TTASLock",
+    "Tournament",
+    "FilterV1",
+    "FilterV2",
+    "BakeryLockV1",
+    "BakeryLockV2",
+]
 threads = [1, 2, 3, 4, 5, 6, 7, 8]
 
 mapping = {
