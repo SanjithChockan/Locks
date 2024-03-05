@@ -14,7 +14,9 @@ public class Main {
 
         
         if (args.length == 0) {
-            invokeTASLock(4, 1000);
+            invokeTASLock(8, 100000);
+            invokeTTASLock(8, 100000);
+            invokeTournamentAlgorithm(8, 100000);
             System.exit(0);
         }
 
@@ -86,6 +88,7 @@ public class Main {
         }
         long stopTime = System.currentTimeMillis();
         String outputData = String.valueOf((stopTime - startTime));
+        System.out.println(outputData + "ms");
         /* 
         outputWriter.write(outputData);
         outputWriter.flush();
@@ -97,7 +100,49 @@ public class Main {
     }
 
     static void invokeTTASLock(int n, int limit) throws Exception {
+        Thread[] threads = new Thread[n];
+        TTASLock ttas = new TTASLock();
+        c = new Counter(ttas);
 
+        for (int i = 0; i < n; i++) {
+            // each thread invokes incrementcounter "limit" times
+            threads[i] = new Thread(new Runnable() {
+                public void run() {
+                    for (int j = 0; j < limit; j++) {
+                        c.increment();
+                    }
+                }
+            });
+
+            // instantiate lock object with offset to correctly index threads from 0 to n-1
+            if (i == 0) {
+                ttas.setOffset((int) threads[i].getId());
+            }
+        }
+
+        long startTime = System.currentTimeMillis();
+        for (int i = 0; i < n; i++) {
+            threads[i].start();
+        }
+
+        // Wait for each thread to complete using the join() method
+        for (Thread thread : threads) {
+            try {
+                thread.join(); // Main thread waits for each thread to finish
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        long stopTime = System.currentTimeMillis();
+        String outputData = String.valueOf((stopTime - startTime));
+        System.out.println(outputData + "ms");
+        /* 
+        outputWriter.write(outputData);
+        outputWriter.flush();
+        outputWriter.newLine();
+        */
+        // display count
+        c.displayCount();
     }
 
     static void invokeTournamentAlgorithm(int n, int limit) throws Exception {
@@ -136,9 +181,12 @@ public class Main {
         }
         long stopTime = System.currentTimeMillis();
         String outputData = String.valueOf((stopTime - startTime));
+        System.out.println(outputData + "ms");
+        /* 
         outputWriter.write(outputData);
         outputWriter.flush();
         outputWriter.newLine();
+        */
         // display count
         c.displayCount();
 
