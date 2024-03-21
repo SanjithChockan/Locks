@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         // Driver Code to invoke locks
-        int limit = 100;
+        int limit = 300000;
         String lockType = args[0];
         int num = Integer.parseInt(args[1]);
         boolean toAppend = "true".equals(args[2]);
@@ -47,12 +47,12 @@ public class Main {
     static void invokeLock(Lock lock, int n, int limit) throws Exception {
         Thread[] threads = new Thread[n];
         c = new Counter(lock);
-
+        int numItersPerThread = limit/n;
         for (int i = 0; i < n; i++) {
             // each thread invokes incrementcounter "limit" times
             threads[i] = new Thread(new Runnable() {
                 public void run() {
-                    for (int j = 0; j < limit; j++) {
+                    for (int j = 0; j < numItersPerThread; j++) {
                         c.increment();
                     }
                 }
