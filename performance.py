@@ -8,22 +8,27 @@ import matplotlib.pyplot as plt
 
 
 lock_type = [
-    "TASLock",
-    "TTASLock",
+
     "Tournament",
     "FilterV1",
     "FilterV2",
     "BakeryLockV1",
     "BakeryLockV2",
+    "TASLock",
+    "TTASLock"
 ]
-threads = [1, 2, 3, 4, 5, 6, 7, 8]
+threads = [1, 2, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48]
 
 mapping = {
+
     "Tournament": [],
     "FilterV1": [],
     "FilterV2": [],
     "BakeryLockV1": [],
     "BakeryLockV2": [],
+    "TASLock": [],
+    "TTASLock": []
+
 }
 
 for lock in lock_type:
@@ -56,6 +61,12 @@ plt.plot(
 plt.plot(
     threads, mapping[lock_type[4]], label=f"Bakery Lock: Research Paper"
 )  # Label for dataset 4
+plt.plot(
+    threads, mapping[lock_type[5]], label=f"TAS Lock"
+)  # Label for dataset 5
+plt.plot(
+    threads, mapping[lock_type[6]], label=f"TTAS Lock"
+)  # Label for dataset 6
 
 # Add labels to the x-axis and y-axis
 plt.xlabel("# of Threads")

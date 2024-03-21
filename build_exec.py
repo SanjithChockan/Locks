@@ -29,7 +29,7 @@ def collect_data():
         "BakeryLockV1",
         "BakeryLockV2",
     ]
-    threads = [1, 2, 3, 4, 5, 6, 7, 8]
+    threads = [1, 2, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48]
 
     for lock in lock_type:
         for t in threads:
@@ -57,7 +57,7 @@ def collect_data():
                 process.wait()
 
                 # Print the output of the Java program
-                print("Output:", stdout.decode("utf-8"))
+                print("Output:\n", stdout.decode("utf-8"))
 
                 # Check if there was any error
                 if stderr:
