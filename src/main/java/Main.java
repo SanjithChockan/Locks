@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         // Driver Code to invoke locks
-        int limit = 1000000;
+        int limit = 3000000;
         String lockType = args[0];
         int num = Integer.parseInt(args[1]);
         boolean toAppend = "true".equals(args[2]);

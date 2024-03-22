@@ -56,7 +56,7 @@ plt.title("Lock Performances")
 # Add a legend to the plot
 plt.legend()
 
-plt.savefig("plot_2.pdf")
+plt.savefig("plot_2_3mil.pdf")
 
 # Show the plot
 plt.show()
