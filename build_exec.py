@@ -20,6 +20,7 @@ def run_project():
 
 
 def collect_data():
+    '''
     lock_type = [
         "TASLock",
         "TTASLock",
@@ -28,6 +29,12 @@ def collect_data():
         "FilterV2",
         "BakeryLockV1",
         "BakeryLockV2",
+    ]
+    '''
+    lock_type = [
+        "TASLock",
+        "TTASLock",
+        "Tournament"
     ]
     threads = [1, 2, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48]
 
