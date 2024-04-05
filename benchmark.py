@@ -33,7 +33,6 @@ for lock in lock_type:
 
 
 for l in lock_type:
-
     plt.plot(
         threads, mapping[l], label=f"{l}"
     ) 
