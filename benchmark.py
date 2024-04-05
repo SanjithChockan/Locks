@@ -4,21 +4,18 @@ import copy
 import math
 import matplotlib.pyplot as plt
 
-lock_type = [
 
-    "Tournament",
-    "TASLock",
-    "TTASLock"
-]
-threads = [1, 2, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48]
+lock_type = []
+mapping = {}
 
-mapping = {
+for l in config.test_lock:
+    if config.test_lock[l]:
+        lock_type.append(l)
+        mapping[l] = []
 
-    "Tournament": [],
-    "TASLock": [],
-    "TTASLock": []
 
-}
+threads = config.thread_counts
+
 
 for lock in lock_type:
     avg_list = []
@@ -34,17 +31,12 @@ for lock in lock_type:
     mapping[lock] = copy.deepcopy(avg_list)
 
 
-# Plot the data and set labels
-plt.plot(
-    threads, mapping[lock_type[0]], label=f"Peterson's Tournament Tree"
-)  # Label for dataset 1
 
-plt.plot(
-    threads, mapping[lock_type[1]], label=f"TAS Lock"
-)  # Label for dataset 5
-plt.plot(
-    threads, mapping[lock_type[2]], label=f"TTAS Lock"
-)  # Label for dataset 6
+for l in lock_type:
+
+    plt.plot(
+        threads, mapping[l], label=f"{l}"
+    ) 
 
 # Add labels to the x-axis and y-axis
 plt.xlabel("# of Threads")
@@ -56,7 +48,7 @@ plt.title("Lock Performances")
 # Add a legend to the plot
 plt.legend()
 
-plt.savefig("plot_2_3mil.pdf")
+plt.savefig("filter-and-bakery-locks.pdf")
 
 # Show the plot
 plt.show()
