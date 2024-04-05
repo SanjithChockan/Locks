@@ -48,7 +48,7 @@ plt.title("Lock Performances")
 # Add a legend to the plot
 plt.legend()
 
-plt.savefig("filter-and-bakery-locks.pdf")
+plt.savefig("filter-locks.pdf")
 
 # Show the plot
 plt.show()
