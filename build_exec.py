@@ -25,7 +25,6 @@ def collect_data():
     for l in config.test_lock:
         if config.test_lock[l]:
             lock_type.append(l)
-            mapping[l] = []
 
     threads = config.thread_counts
 
@@ -53,9 +52,6 @@ def collect_data():
                 stdout, stderr = process.communicate()
                 # Wait for the process to finish
                 process.wait()
-
-                # Print the output of the Java program
-                print("Output:\n", stdout.decode("utf-8"))
 
                 # Check if there was any error
                 if stderr:

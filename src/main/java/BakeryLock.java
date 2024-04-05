@@ -11,7 +11,6 @@ public class BakeryLock extends Lock {
     private AtomicIntegerArray label;
 
     public BakeryLock(int n) {
-        System.out.println("Bakery Lock V1: Textbook Version");
         this.n = n;
         label = new AtomicIntegerArray(n);
         flag = new AtomicBoolean[n];

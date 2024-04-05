@@ -4,7 +4,6 @@ public class TTASLock extends Lock{
 
     AtomicBoolean state = new AtomicBoolean(false);
     public TTASLock() {
-        System.out.println("TTAS Lock");
     }
 
     @Override

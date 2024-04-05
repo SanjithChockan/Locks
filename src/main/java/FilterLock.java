@@ -8,7 +8,6 @@ public class FilterLock extends Lock {
     private AtomicIntegerArray victim;
 
     public FilterLock(int n) {
-        System.out.println("Filter Lock V1: Textbook Version");
         this.n = n;
         level = new AtomicIntegerArray(n);
         victim = new AtomicIntegerArray(n);

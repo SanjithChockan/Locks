@@ -22,7 +22,6 @@ public class TournamentTree extends Lock {
     int numOfLevels;
 
     public TournamentTree(int n) {
-        System.out.println("Peterson's Tournament Tree");
         this.n = n;
         numOfLeaves = setNumberOfLeaves(n);
         numOfLevels = setLevel(numOfLeaves);

@@ -10,7 +10,6 @@ public class FilterLockV2 extends Lock {
     ConcurrentHashMap<Integer, AtomicBoolean[]> levels = new ConcurrentHashMap<Integer, AtomicBoolean[]>();
 
     public FilterLockV2(int n) {
-        System.out.println("Filter Lock V2: Blackbox Version (Derivation from Peterson)");
         this.n = n;
 
         victim = new AtomicIntegerArray(n);

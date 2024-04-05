@@ -18,6 +18,7 @@ public class Main {
 
         String filePath = "/home/sxc180101/Desktop/Projects/Locks/src/resources/data/";
         
+
         try {
             myWriter = new FileWriter(filePath + lockType + "/" + lockType + "-" + num + ".txt", toAppend);
             outputWriter = new BufferedWriter(myWriter);

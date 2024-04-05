@@ -8,7 +8,6 @@ public class BakeryLockV2 extends Lock {
     private AtomicInteger[] number;
 
     public BakeryLockV2(int n) {
-        System.out.println("Bakery Lock V2: Lamport's Paper Version");
         this.n = n;
         choosing = new AtomicInteger[n];
         number = new AtomicInteger[n];
