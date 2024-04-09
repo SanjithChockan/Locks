@@ -7,6 +7,7 @@ import spinlocks.ClassicLocks.BakeryLock;
 import spinlocks.ClassicLocks.BakeryLockV2;
 import spinlocks.ClassicLocks.FilterLock;
 import spinlocks.ClassicLocks.FilterLockV2;
+import spinlocks.QueueLocks.CLHLock;
 import spinlocks.TestAndSetLocks.TASLock;
 import spinlocks.TestAndSetLocks.TTASLock;
 import spinlocks.TreeLocks.TournamentTree;
@@ -26,27 +27,15 @@ public class Main {
         if (testing) {
 
             // counter should be incremented to (limit * num) value
-            int num = 10;
-            int limit = 25000;
+            int num = 40;
+            int limit = 100000;
+            long expected = (long)(num * limit);
             System.out.println("Testing mode enabled...\n");
-            System.out.println("Expectec count value: " + (num * limit) + "\n");
+            System.out.println("Expected count value: " + (expected) + "\n");
 
-
-            System.out.println("---Tournament Tree Lock ---");
-            testCorrectness(new TournamentTree(num), num, limit);
-
-            System.out.println("---Filter Lock V1---");
-            testCorrectness(new FilterLock(num), num, limit);
-
-            System.out.println("---Filter Lock V2---");
-            testCorrectness(new FilterLockV2(num), num, limit);
-
-            System.out.println("---Bakery Lock V1---");
-            testCorrectness(new BakeryLock(num), num, limit);
-
-            System.out.println("---Bakery Lock V2---");
-            testCorrectness(new BakeryLockV2(num), num, limit);
-
+            System.out.println("---CLH Lock ---");
+            testCorrectness(new CLHLock(), num, limit);
+            System.out.println("Lock works: " + (expected == c.count));
 
             System.out.println("Shutting down...");
             System.exit(0);
