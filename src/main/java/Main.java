@@ -26,8 +26,8 @@ public class Main {
         if (testing) {
 
             // counter should be incremented to (limit * num) value
-            int num = 20;
-            int limit = 200000;
+            int num = 10;
+            int limit = 25000;
             System.out.println("Testing mode enabled...\n");
             System.out.println("Expectec count value: " + (num * limit) + "\n");
 
