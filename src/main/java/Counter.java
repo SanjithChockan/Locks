@@ -16,7 +16,6 @@ public class Counter {
     }
 
     public void displayCount() {
-        System.out.println("count: " + count);
-        System.out.println();
+        System.out.println(count);
     }
 }
