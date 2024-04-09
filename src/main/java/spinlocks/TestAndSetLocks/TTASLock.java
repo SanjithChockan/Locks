@@ -1,4 +1,7 @@
+package spinlocks.TestAndSetLocks;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import spinlocks.Lock;
 
 public class TTASLock extends Lock{
 

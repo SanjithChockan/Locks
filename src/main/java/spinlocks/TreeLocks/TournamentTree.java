@@ -1,7 +1,10 @@
+package spinlocks.TreeLocks;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import spinlocks.Lock;
 
 // peterson's algorithm for 2 process generenalized to n processes using a tournament tree
 public class TournamentTree extends Lock {

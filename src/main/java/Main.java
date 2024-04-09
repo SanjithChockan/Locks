@@ -2,6 +2,15 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import spinlocks.Lock;
+import spinlocks.ClassicLocks.BakeryLock;
+import spinlocks.ClassicLocks.BakeryLockV2;
+import spinlocks.ClassicLocks.FilterLock;
+import spinlocks.ClassicLocks.FilterLockV2;
+import spinlocks.TestAndSetLocks.TASLock;
+import spinlocks.TestAndSetLocks.TTASLock;
+import spinlocks.TreeLocks.TournamentTree;
+
 public class Main {
     static Counter c;
     static FileWriter myWriter;

@@ -1,5 +1,8 @@
+package spinlocks.ClassicLocks;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicIntegerArray;
+
+import spinlocks.Lock;
 
 public class BakeryLock extends Lock {
 

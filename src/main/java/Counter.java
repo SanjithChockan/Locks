@@ -1,3 +1,5 @@
+import spinlocks.Lock;
+
 public class Counter {
     
     long count;

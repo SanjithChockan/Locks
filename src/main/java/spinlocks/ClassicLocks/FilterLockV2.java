@@ -1,6 +1,9 @@
+package spinlocks.ClassicLocks;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicIntegerArray;
+
+import spinlocks.Lock;
 
 public class FilterLockV2 extends Lock {
     int n;

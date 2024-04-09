@@ -1,4 +1,7 @@
+package spinlocks.ClassicLocks;
 import java.util.concurrent.atomic.AtomicIntegerArray;
+
+import spinlocks.Lock;
 
 public class FilterLock extends Lock {
 
