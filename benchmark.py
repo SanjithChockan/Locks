@@ -4,7 +4,6 @@ import copy
 import math
 import matplotlib.pyplot as plt
 
-
 lock_type = []
 mapping = {}
 
@@ -13,9 +12,7 @@ for l in config.test_lock:
         lock_type.append(l)
         mapping[l] = []
 
-
 threads = config.thread_counts
-
 
 for lock in lock_type:
     avg_list = []
@@ -29,8 +26,6 @@ for lock in lock_type:
             average = sum(lines) / len(lines)
             avg_list.append(average)
     mapping[lock] = copy.deepcopy(avg_list)
-
-
 
 for l in lock_type:
     plt.plot(
@@ -47,7 +42,7 @@ plt.title("Lock Performances")
 # Add a legend to the plot
 plt.legend()
 
-plt.savefig("filter-locks.pdf")
+plt.savefig("plots/queue-locks.pdf")
 
 # Show the plot
 plt.show()
