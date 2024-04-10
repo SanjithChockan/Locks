@@ -28,7 +28,11 @@
 
     <!-- Run -->
     <target name="run" depends="compile">
-        <java classname="Main" classpath="${classes.dir}" fork="true"/>
+        <java classname="Main" classpath="${classes.dir}" fork="true">
+            <arg value="${arg1}"/>
+            <arg value="${arg2}"/>
+            <arg value="${arg3}"/>
+        </java>
     </target>
 
     

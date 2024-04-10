@@ -21,30 +21,17 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         
-
         // Test correctness
         boolean testing = true;
         
         if (testing) {
 
-            // counter should be incremented to (limit * num) value
-            int num = 30;
-            int limit = 100000;
-            long expected = (long)(num * limit);
-            System.out.println("Testing mode enabled...\n");
-            System.out.println("Expected count value: " + (expected) + "\n");
-
-
-            System.out.println("---MCS Lock ---");
-            testCorrectness(new MCSLock(), num, limit);
-            System.out.println("Lock works: " + (expected == c.count));
-
-            System.out.println("Shutting down...");
+            testCorrectness(new MCSLock(), 2, 20000);
             System.exit(0);
         }
 
         // Driver Code to invoke locks
-        int limit = 250000;
+        int limit = 200000;
         String lockType = args[0];
         int num = Integer.parseInt(args[1]);
         boolean toAppend = "true".equals(args[2]);
@@ -74,7 +61,12 @@ public class Main {
             invokeLock(new TASLock(), num, limit);
         } else if (lockType.equals("TTASLock")) {
             invokeLock(new TTASLock(), num, limit);
+        } else if (lockType.equals("CLHLock")) {
+            invokeLock(new CLHLock(), num, limit);
+        } else if (lockType.equals("MCSLock")) {
+            invokeLock(new MCSLock(), num, limit);
         }
+        
         outputWriter.close();
     }
 

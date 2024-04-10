@@ -7,18 +7,6 @@ source_directory = config.source_directory
 target_directory = config.target_directory
 
 
-def compile_java_project():
-    compile_command = f"javac -d {target_directory} {source_directory}/*.java"
-    os.system(compile_command)
-    print("Compilation completed!")
-
-
-def run_project():
-    print("Executing locks...")
-    compile_command = f'java -cp "{target_directory}" Main'
-    os.system(compile_command)
-
-
 def collect_data():
     lock_type = []
 
@@ -34,13 +22,11 @@ def collect_data():
             # average 10 runs
             for i in range(10):
                 java_command = [
-                    "java",
-                    "-cp",
-                    f"{target_directory}",
-                    "Main",
-                    lock,
-                    f"{t}",
-                    to_append,
+                    "ant",
+                    'run',
+                    f'-Darg1={lock}',
+                    f'-Darg2={t}',
+                    f'-Darg3={to_append}',
                 ]
                 to_append = "true"
 
@@ -58,6 +44,7 @@ def collect_data():
                     print("Error:", stderr.decode("utf-8"))
 
                 # Check the return code of the process
+                #print(stdout.decode("utf-8"))
                 if process.returncode == 0:
                     print("Java program executed successfully.")
                 else:
@@ -65,6 +52,4 @@ def collect_data():
 
 
 if __name__ == "__main__":
-    compile_java_project()
-    # run_project()
     collect_data()
