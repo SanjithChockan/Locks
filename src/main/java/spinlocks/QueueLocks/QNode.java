@@ -2,7 +2,7 @@ package spinlocks.QueueLocks;
 
 public class QNode {
     volatile boolean locked;
-    QNode next;
+    volatile QNode next;
 
     public QNode() {
         locked = false;

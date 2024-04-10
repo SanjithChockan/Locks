@@ -13,7 +13,6 @@ public class Counter {
     public void increment() {
         lock.lock();
         count++;
-        displayCount();
         //displayCount();
         lock.unlock();
     }

@@ -25,8 +25,10 @@ public class Main {
         boolean testing = true;
         
         if (testing) {
-
-            testCorrectness(new MCSLock(), 2, 20000);
+            int num = 6;
+            int limit = 80000;
+            testCorrectness(new MCSLock(), num, limit);
+            System.out.println("Is correct: " + (num*limit == c.count));
             System.exit(0);
         }
 
@@ -36,8 +38,8 @@ public class Main {
         int num = Integer.parseInt(args[1]);
         boolean toAppend = "true".equals(args[2]);
 
-        String filePath = "/home/sxc180101/Desktop/Projects/Locks/src/resources/data/";
-            
+        //String filePath = "/home/sxc180101/Desktop/Projects/Locks/src/resources/data/";
+        String filePath = "/Users/sanjith/Computer Science/Research/multicore/Locks/src/resources/data/";
 
         try {
             myWriter = new FileWriter(filePath + lockType + "/" + lockType + "-" + num + ".txt", toAppend);

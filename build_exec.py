@@ -3,9 +3,6 @@ import config
 import os
 import subprocess
 
-source_directory = config.source_directory
-target_directory = config.target_directory
-
 
 def collect_data():
     lock_type = []
