@@ -37,7 +37,7 @@ plt.xlabel("# of Threads")
 plt.ylabel("Time in (ms)")
 
 # Add a title to the plot
-plt.title("Lock Performances")
+plt.title("Queue Lock Performances")
 
 # Add a legend to the plot
 plt.legend()

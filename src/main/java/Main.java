@@ -22,24 +22,24 @@ public class Main {
     public static void main(String[] args) throws Exception {
         
         // Test correctness
-        boolean testing = true;
+        boolean testing = false;
         
         if (testing) {
-            int num = 6;
-            int limit = 80000;
+            int num = 20;
+            int limit = 100000;
             testCorrectness(new MCSLock(), num, limit);
             System.out.println("Is correct: " + (num*limit == c.count));
             System.exit(0);
         }
 
         // Driver Code to invoke locks
-        int limit = 200000;
+        int limit = 2500000;
         String lockType = args[0];
         int num = Integer.parseInt(args[1]);
         boolean toAppend = "true".equals(args[2]);
 
-        //String filePath = "/home/sxc180101/Desktop/Projects/Locks/src/resources/data/";
-        String filePath = "/Users/sanjith/Computer Science/Research/multicore/Locks/src/resources/data/";
+        String filePath = "/home/sxc180101/Desktop/Projects/Locks/src/resources/data/";
+        //String filePath = "/Users/sanjith/Computer Science/Research/multicore/Locks/src/resources/data/";
 
         try {
             myWriter = new FileWriter(filePath + lockType + "/" + lockType + "-" + num + ".txt", toAppend);
