@@ -23,10 +23,10 @@ public class Main {
     public static void main(String[] args) throws Exception {
         
         // Test correctness
-        boolean testing = true;
+        boolean testing = false;
         
         if (testing) {
-            int num = 7;
+            int num = 20;
             int limit = 100000;
             //testCorrectness(new CLHLock(), num, limit);
             testCorrectness(new Hemlock(), num, limit);
@@ -35,10 +35,11 @@ public class Main {
         }
 
         // Driver Code to invoke locks
-        int limit = 2500000;
+        
         String lockType = args[0];
         int num = Integer.parseInt(args[1]);
         boolean toAppend = "true".equals(args[2]);
+        int limit = Integer.parseInt(args[3]);
 
         String filePath = "/home/sxc180101/Desktop/Projects/Locks/src/resources/data/";
         //String filePath = "/Users/sanjith/Computer Science/Research/multicore/Locks/src/resources/data/";
@@ -68,6 +69,8 @@ public class Main {
         } else if (lockType.equals("CLHLock")) {
             invokeLock(new CLHLock(), num, limit);
         } else if (lockType.equals("MCSLock")) {
+            invokeLock(new MCSLock(), num, limit);
+        } else if (lockType.equals("HemLock")) {
             invokeLock(new MCSLock(), num, limit);
         }
         

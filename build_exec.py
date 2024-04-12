@@ -12,7 +12,7 @@ def collect_data():
             lock_type.append(l)
 
     threads = config.thread_counts
-
+    limit = config.limit
     for lock in lock_type:
         for t in threads:
             to_append = "false"
@@ -24,6 +24,7 @@ def collect_data():
                     f'-Darg1={lock}',
                     f'-Darg2={t}',
                     f'-Darg3={to_append}',
+                    f'-Darg4={limit}'
                 ]
                 to_append = "true"
 
