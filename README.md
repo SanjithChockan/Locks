@@ -21,9 +21,12 @@ Benchmarked performance on Intel® Xeon(R) Gold 5220R CPU @ 2.20GHz × 48 (24 Co
 Measured scalability performance of locks using a simple Counter.
 Each data point is averaged over 10 runs. 
 
-![Plot](/plots/plot/plot-1.png)
-![Plot](/plots/Tournament--and--TAS/Tournament--and--TAS-1.png)
-![Plot](/plots/queue-locks/queue-locks-1.png)
+<img src="plots/plot/plot-1.png" height ="350" width="450"/>
+
+<img src="plots/Tournament--and--TAS/Tournament--and--TAS-1.png" height ="350" width="450"/>
+
+<img src="plots/queue-locks/queue-locks-1.png" height ="350" width="450"/>
+
 
 # Implementation
 - Java: openjdk version "11.0.22"
