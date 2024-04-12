@@ -1,39 +1,40 @@
 package spinlocks.QueueLocks;
-
 import java.util.concurrent.atomic.AtomicReference;
 
 import spinlocks.Lock;
 
 public class Hemlock extends Lock{
+
+    ThreadLocal<QNode> myNode;
     AtomicReference<QNode> tail;
-    ThreadLocal<QNode> myGrant;
 
     public Hemlock() {
-        tail = null;
-        myGrant = new ThreadLocal<QNode>() {
+        tail = new AtomicReference<QNode>(null);
+
+        myNode = new ThreadLocal<QNode>() {
             protected QNode initialValue() {
-                return null;
+                return new QNode();
             }
         };
     }
 
     public void lock() {
-        QNode grant = myGrant.get();
-        QNode pred = tail.getAndSet(grant);
+        QNode qnode = myNode.get();
+        QNode pred = tail.getAndSet(qnode);
 
         if (pred != null) {
-            // contention : must wait
-            while (pred != tail.get()) {};
-            pred = null;
+            // contention: busy wait
+            while (pred.grant != tail) {};
+            pred.grant = null;
         }
     }
 
     public void unlock() {
-        QNode grant = myGrant.get();
-        if(!tail.compareAndSet(grant, null)) {
-            // one or more waiters
-            grant = tail.get();
-            while (grant != null) {};
+        QNode qnode = myNode.get();
+        if (!tail.compareAndSet(qnode, null)) {
+            // waiters exist
+            qnode.grant = tail;
+            while(qnode.grant != null){};
         }
     }
 }
