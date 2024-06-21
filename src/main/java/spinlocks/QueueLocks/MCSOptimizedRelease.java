@@ -2,6 +2,7 @@ package spinlocks.QueueLocks;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.UnaryOperator; 
 
 import spinlocks.Lock;
 
@@ -22,35 +23,51 @@ public class MCSOptimizedRelease extends Lock {
     @Override
     public void lock() {
         QNode qnode = myNode.get();
+        System.out.println("Thread " + qnode.id.get() + " entering lock");
 
         // can spin on isReleasing until successor thread sets it to false if it isn't
         // already
-        if (qnode.isReleasing.get()) {
+        /*
+         if (qnode.isReleasing.get()) {
             // arrive here if exited release method by flagging
             // should be unlocked in acquire method by successor
             while (qnode.isReleasing.get()) {
             }
-        }
+        } 
+         */
+        
+        UnaryOperator function = (v) -> qnode.updateTimeStamp((QNode) v); 
+        //QNode pred = tail.getAndSet(qnode);
+        QNode pred = tail.getAndUpdate(function);
 
-        QNode pred = tail.getAndSet(qnode);
         if (pred != null) {
             qnode.locked = true;
             pred.next = qnode;
-            // Next problem: need to gaurantee execution of if statement and block to remove spinning above
+            // Problem: if statement fails before pred can set new timestamp
             if (pred.isReleasing.get()) {
                 // set pred.next to null in case it exits by flag and doesn't reset its next
                 // should be done before resetting isReleasing
                 // value and reset for thread to exit infinite loop
+
+                if (qnode.timestamp.get() == pred.timestamp.get()) {
+                    qnode.locked = false;
+                    System.out.println("Thread " + qnode.id.get() + " acquired lock through timestamp");
+                }
+                // either still the qnode or reset by another thread that enqueued
+                // consider that case before resetting it to null
                 pred.next = null;
                 pred.isReleasing.set(false);
                 // System.out.println("Thread " + qnode.id.get() + ": Enter by flag by
                 // predecessor Thread " + pred.id.get());
                 qnode.locked = false;
+                System.out.println("Thread " + qnode.id.get() + " acquired lock through flag/timestamp");
                 return;
             }
             // wait until pred gives up lock
+            System.out.println("Thread " + qnode.id.get() + " spinning on locked");
             while (qnode.locked) {
             }
+            System.out.println("Thread " + qnode.id.get() + " acquired lock through locked field");
         }
 
     }
@@ -58,7 +75,9 @@ public class MCSOptimizedRelease extends Lock {
     @Override
     public void unlock() {
         QNode qnode = myNode.get();
-        qnode.isReleasing.set(true);;
+        System.out.println("Thread " + qnode.id.get() + " entering unlock");
+        qnode.timestamp.incrementAndGet();
+        qnode.isReleasing.set(true);
 
         if (qnode.next == null) {
             // check if no contenders exist to replace tail with null
@@ -68,6 +87,7 @@ public class MCSOptimizedRelease extends Lock {
                 qnode.isReleasing.set(false);
                 // System.out.println("Thread " + qnode.id.get() + ": No contenders. Released
                 // lock and reset tail");
+                System.out.println("Thread " + qnode.id.get() + " releasing with no contention");
                 return;
             }
 
@@ -78,10 +98,11 @@ public class MCSOptimizedRelease extends Lock {
 
             // System.out.println(qnode + " Thread " + qnode.id.get() + ": release lock by
             // flag");
+            System.out.println("Thread " + qnode.id.get() + " releasing by flag");
 
         } else {
-            // System.out.println("Thread " + qnode.id.get() + ": setting successor Thread
-            // "+ qnode.next.id.get() + " locked field to false");
+            
+            System.out.println("Thread " + qnode.id.get() + " releasing with locked field");
             qnode.next.locked = false;
             qnode.next = null;
             qnode.isReleasing.set(false);

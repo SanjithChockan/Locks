@@ -27,13 +27,13 @@ public class Main {
         boolean testing = true;
         
         if (testing) {
-            int num = 30;
-            int limit = 100000;
+            int num = 2;
+            int limit = 500;
             //testCorrectness(new CLHLock(), num, limit);
             testCorrectness(new MCSOptimizedRelease(), num, limit);
             System.out.println("Is correct: " + (num*limit == c.count));
-            testCorrectness(new MCSLock(), num, limit);
-            System.out.println("Is correct: " + (num*limit == c.count));
+            //testCorrectness(new MCSLock(), num, limit);
+            //System.out.println("Is correct: " + (num*limit == c.count));
             System.exit(0);
         }
 
@@ -141,6 +141,8 @@ public class Main {
                     for (int j = 0; j < limit; j++) {
                         c.increment();
                     }
+
+                    System.out.println("Thread Complete");
                 }
             });
 

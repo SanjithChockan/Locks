@@ -13,6 +13,8 @@ public class QNode {
     
     volatile boolean locked;
     // Used for MCSLock 
+
+    // change to Atomic Reference
     volatile QNode next;
     
     // Used for MCSOptimizedRelease
@@ -36,5 +38,11 @@ public class QNode {
         isReleasing = new AtomicBoolean(false);
         this.id = new AtomicInteger(id);
         timestamp = new AtomicInteger(0);
+    }
+
+    public QNode updateTimeStamp(QNode prev) {
+        if (prev != null)
+            timestamp.addAndGet(prev.timestamp.get() + 1);
+        return this;
     }
 }
