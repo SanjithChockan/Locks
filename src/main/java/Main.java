@@ -10,6 +10,7 @@ import spinlocks.ClassicLocks.FilterLockV2;
 import spinlocks.QueueLocks.CLHLock;
 import spinlocks.QueueLocks.Hemlock;
 import spinlocks.QueueLocks.MCSLock;
+import spinlocks.QueueLocks.MCSOptimizedRelease;
 import spinlocks.TestAndSetLocks.TASLock;
 import spinlocks.TestAndSetLocks.TTASLock;
 import spinlocks.TreeLocks.TournamentTree;
@@ -23,13 +24,15 @@ public class Main {
     public static void main(String[] args) throws Exception {
         
         // Test correctness
-        boolean testing = false;
+        boolean testing = true;
         
         if (testing) {
-            int num = 20;
+            int num = 30;
             int limit = 100000;
             //testCorrectness(new CLHLock(), num, limit);
-            testCorrectness(new Hemlock(), num, limit);
+            testCorrectness(new MCSOptimizedRelease(), num, limit);
+            System.out.println("Is correct: " + (num*limit == c.count));
+            testCorrectness(new MCSLock(), num, limit);
             System.out.println("Is correct: " + (num*limit == c.count));
             System.exit(0);
         }
