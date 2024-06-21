@@ -10,6 +10,7 @@ public class QNode {
 
     // timestamp
     AtomicInteger timestamp;
+    AtomicInteger completedTimestamp;
     
     volatile boolean locked;
     // Used for MCSLock 
@@ -30,6 +31,7 @@ public class QNode {
         next = null;
         isReleasing = new AtomicBoolean(false);
         timestamp = new AtomicInteger(0);
+        completedTimestamp = new AtomicInteger(0);
     }
 
     public QNode(int id) {
@@ -38,6 +40,7 @@ public class QNode {
         isReleasing = new AtomicBoolean(false);
         this.id = new AtomicInteger(id);
         timestamp = new AtomicInteger(0);
+        completedTimestamp = new AtomicInteger(0);
     }
 
     public QNode updateTimeStamp(QNode prev) {

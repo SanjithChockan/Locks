@@ -49,10 +49,18 @@ public class MCSOptimizedRelease extends Lock {
                 // should be done before resetting isReleasing
                 // value and reset for thread to exit infinite loop
 
-                if (qnode.timestamp.get() == pred.timestamp.get()) {
+                if (qnode.timestamp.get() == pred.completedTimestamp.get()) {
+                    // set pred.next to null if it's still me, use CAS w/ atomic reference
+                    if (pred.next == qnode) {
+                        pred.next = null;
+                        
+                    }
+                    pred.isReleasing.set(false);
                     qnode.locked = false;
                     System.out.println("Thread " + qnode.id.get() + " acquired lock through timestamp");
+                    return;
                 }
+
                 // either still the qnode or reset by another thread that enqueued
                 // consider that case before resetting it to null
                 pred.next = null;
@@ -76,7 +84,7 @@ public class MCSOptimizedRelease extends Lock {
     public void unlock() {
         QNode qnode = myNode.get();
         System.out.println("Thread " + qnode.id.get() + " entering unlock");
-        qnode.timestamp.incrementAndGet();
+        qnode.completedTimestamp.set(qnode.timestamp.get() + 1);
         qnode.isReleasing.set(true);
 
         if (qnode.next == null) {
@@ -101,7 +109,6 @@ public class MCSOptimizedRelease extends Lock {
             System.out.println("Thread " + qnode.id.get() + " releasing by flag");
 
         } else {
-            
             System.out.println("Thread " + qnode.id.get() + " releasing with locked field");
             qnode.next.locked = false;
             qnode.next = null;
